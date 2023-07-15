@@ -27,7 +27,7 @@ export class LoginComponent {
 
       this.userService.login(email, password).subscribe(
         (response) => {
-          //this.router.navigate(['/contacts']);
+          this.router.navigate(['/contacts']);
           this.toastr.success('Login efetuado com sucesso.', '');
         },
         (error) => {

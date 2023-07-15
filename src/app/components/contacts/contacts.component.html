@@ -1,0 +1,12 @@
+<p>contacts works!</p>
+<div *ngIf="contacts.length > 0">
+  <h2>Lista de Contatos</h2>
+  <ul>
+    <li *ngFor="let contact of contacts">
+      {{ contact.name }} - {{ contact.email }}
+    </li>
+  </ul>
+</div>
+<div *ngIf="contacts.length === 0">
+  <p>Nenhum contato encontrado.</p>
+</div>

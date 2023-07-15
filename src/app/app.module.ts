@@ -10,6 +10,9 @@ import { ReactiveFormsModule } from '@angular/forms';
 import { HttpClientModule } from '@angular/common/http';
 import { ToastrModule } from 'ngx-toastr';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
+import { ContactsComponent } from './components/contacts/contacts.component';
+import { HeaderComponent } from './components/shared/header/header.component';
+import { SidemenuComponent } from './components/shared/sidemenu/sidemenu.component';
 
 
 @NgModule({
@@ -17,7 +20,10 @@ import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
     AppComponent,
     UserComponent,
     RegisterComponent,
-    LoginComponent
+    LoginComponent,
+    ContactsComponent,
+    HeaderComponent,
+    SidemenuComponent
   ],
   imports: [
     BrowserModule,
