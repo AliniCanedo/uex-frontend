@@ -8,7 +8,6 @@ export class AuthService {
   constructor() { }
 
   isAuthenticated(): boolean {
-    debugger
     const authToken = localStorage.getItem(this.tokenKey);
     return !!authToken;
   }

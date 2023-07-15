@@ -1,11 +1,27 @@
-<p>contacts works!</p>
 <div *ngIf="contacts.length > 0">
-  <h2>Lista de Contatos</h2>
-  <ul>
-    <li *ngFor="let contact of contacts">
-      {{ contact.name }} - {{ contact.email }}
-    </li>
-  </ul>
+  <span class="text-uppercase">Contatos ({{ contacts.length }})</span>
+  <div class="table-responsive">
+    <table class="table table-hover">
+      <thead>
+        <tr >
+          <th scope="col">Nome</th>
+          <th scope="col">Telefone</th>
+          <th scope="col">CPF</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr *ngFor="let contact of contacts">
+          <th scope="row"><svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-person-circle" viewBox="0 0 16 16">
+            <path d="M11 6a3 3 0 1 1-6 0 3 3 0 0 1 6 0z"/>
+            <path fill-rule="evenodd" d="M0 8a8 8 0 1 1 16 0A8 8 0 0 1 0 8zm8-7a7 7 0 0 0-5.468 11.37C3.242 11.226 4.805 10 8 10s4.757 1.225 5.468 2.37A7 7 0 0 0 8 1z"/>
+          </svg>
+          {{ contact.name }}</th>
+          <td>{{ contact.phone }}</td>
+          <td>{{ contact.cpf }}</td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
 </div>
 <div *ngIf="contacts.length === 0">
   <p>Nenhum contato encontrado.</p>
