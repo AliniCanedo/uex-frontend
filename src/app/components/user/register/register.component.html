@@ -1,32 +1,51 @@
 <h1 class="text-uppercase fw-bolder text-center">Cadastrar-se</h1>
 
 <div class="row">
-  <div class="col-12">
-    <div class="form-floating mb-3">
-      <input type="text" class="form-control" id="floatingInput" placeholder="Seu nome">
-      <label for="floatingInput">Seu nome</label>
+  <form [formGroup]="registerForm" (ngSubmit)="onSubmit()">
+    <div class="col-12">
+      <div class="form-floating mb-3">
+        <input type="text" class="form-control" id="floatingInputName" placeholder="Seu nome" formControlName="name">
+        <label for="floatingInputName">Seu nome</label>
+        <div *ngIf="registerForm?.get('name')?.invalid && registerForm?.get('name')?.touched" class="text-danger">
+          Nome é obrigatório e deve ser válido.
+        </div>
+      </div>
     </div>
-  </div>
-  <div class="col-12">
-    <div class="form-floating mb-3">
-      <input type="email" class="form-control" id="floatingInput" placeholder="name@example.com">
-      <label for="floatingInput">E-mail</label>
+    
+    <div class="col-12">
+      <div class="form-floating mb-3">
+        <input type="email" class="form-control" id="floatingInputRegister" placeholder="name@example.com" formControlName="email">
+        <label for="floatingInputRegister">E-mail</label>
+        <div *ngIf="registerForm?.get('email')?.invalid && registerForm?.get('email')?.touched" class="text-danger">
+          Email é obrigatório e deve ser válido.
+        </div>
+      </div>
     </div>
-  </div>
-  <div class="col-lg-6">
-    <div class="form-floating mb-3">
-      <input type="password" class="form-control" id="floatingPassword" placeholder="Senha">
-      <label for="floatingPassword">Senha</label>
-    </div>
-  </div>
-  <div class="col-lg-6">
-    <div class="form-floating mb-3">
-      <input type="password" class="form-control" id="floatingPasswordConfirmation" placeholder="Confirme sua senha">
-      <label for="floatingPasswordConfirmation">Confirme sua senha</label>
-    </div>
-  </div>
 
-  <div class="col-lg-8 mx-auto">
-    <button type="submit" class="btn btn-primary mb-3 d-block w-100 h-75 text-uppercase fw-bold">Cadastrar-se</button>    
-  </div>
+    <div class="row">
+      <div class="col-lg-6">
+        <div class="form-floating mb-3">
+          <input type="password" class="form-control" id="floatingPasswordRegister" placeholder="Senha" formControlName="password">
+          <label for="floatingPasswordRegister">Senha</label>
+          <div *ngIf="registerForm?.get('password')?.invalid && registerForm?.get('password')?.touched" class="text-danger">
+            Senha é obrigatória.
+          </div>
+        </div>
+      </div>
+  
+      <div class="col-lg-6">
+        <div class="form-floating mb-3">
+          <input type="password" class="form-control" id="floatingPasswordConfirmation" placeholder="Confirme sua senha" formControlName="password_confirmation">
+          <label for="floatingPasswordConfirmation">Confirme sua senha</label>
+          <div *ngIf="registerForm?.get('password_confirmation')?.invalid && registerForm?.get('password_confirmation')?.touched" class="text-danger">
+            Confirmação de Senha é obrigatória.
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="col-lg-8 mx-auto">
+      <button type="submit" class="btn btn-primary mb-3 d-block w-100 h-75 text-uppercase fw-bold">Cadastrar-se</button>
+    </div>
+  </form>
 </div>

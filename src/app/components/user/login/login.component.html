@@ -1,19 +1,27 @@
 <h1 class="text-uppercase fw-bolder text-center">Entrar</h1>
 
 <div class="row">
-  <div class="col-lg-12">
-    <div class="form-floating mb-3">
-      <input type="email" class="form-control" id="floatingInput" placeholder="name@example.com">
-      <label for="floatingInput">E-mail</label>
+  <form [formGroup]="loginForm" (ngSubmit)="onSubmit()">
+    <div class="col-lg-12">
+      <div class="form-floating mb-3">
+        <input type="email" class="form-control" id="floatingInput" placeholder="name@example.com" formControlName="email">
+        <label for="floatingInput">E-mail</label>
+        <div *ngIf="loginForm?.get('email')?.invalid && loginForm?.get('email')?.touched" class="text-danger">
+          Email é obrigatório e deve ser válido.
+        </div>
+      </div>
     </div>
-  </div>
-  <div class="col-lg-12">
-    <div class="form-floating mb-3">
-      <input type="password" class="form-control" id="floatingPassword" placeholder="Password">
-      <label for="floatingPassword">Senha</label>
+    <div class="col-lg-12">
+      <div class="form-floating mb-3">
+        <input type="password" class="form-control" id="floatingPassword" placeholder="Password" formControlName="password">
+        <label for="floatingPassword">Senha</label>
+        <div *ngIf="loginForm?.get('password')?.invalid && loginForm?.get('password')?.touched" class="text-danger">
+          Senha é obrigatória.
+        </div>
+      </div>
     </div>
-  </div>
-  <div class="col-lg-8 mx-auto">
-      <button type="submit" class="btn btn-primary mb-3 d-block w-100 h-75 text-uppercase fw-bold">Entrar</button>    
-  </div>
+    <div class="col-lg-8 mx-auto">
+        <button type="submit" class="btn btn-primary mb-3 d-block w-100 h-75 text-uppercase fw-bold">Entrar</button>    
+    </div>
+  </form>
 </div>

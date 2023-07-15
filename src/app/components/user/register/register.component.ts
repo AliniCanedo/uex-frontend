@@ -1,4 +1,7 @@
 import { Component } from '@angular/core';
+import { FormBuilder, FormGroup, Validators } from '@angular/forms';
+import { ToastrService } from 'ngx-toastr';
+import { UserService } from 'src/app/services/user.service';
 
 @Component({
   selector: 'app-register',
@@ -6,5 +9,42 @@ import { Component } from '@angular/core';
   styleUrls: ['./register.component.scss']
 })
 export class RegisterComponent {
+  registerForm: FormGroup;
 
+  constructor(private formBuilder: FormBuilder, private userService: UserService, private toastr: ToastrService) {
+    this.registerForm = this.formBuilder.group({
+      name: ['', [Validators.required]],
+      email: ['', [Validators.required, Validators.email]],
+      password: ['', Validators.required],      
+      password_confirmation: ['', Validators.required]
+    });
+  }
+
+  onSubmit() {
+    if(this.registerForm.valid) {
+      const name = this.registerForm.get('name')?.value;
+      const email = this.registerForm.get('email')?.value;
+      const password = this.registerForm.get('password')?.value;
+      const password_confirmation = this.registerForm.get('password_confirmation')?.value;
+
+      this.userService.register(name, email, password, password_confirmation).subscribe(
+        (response) => {
+          console.log(response)
+          this.toastr.success('Cadastro efetuado com sucesso.', '');
+          this.registerForm.reset();
+        },
+        (error) => {
+          if (error.error && error.error.errors && typeof error.error.errors === 'object') {
+            for (var key in error.error.errors) {
+              if (error.error.errors.hasOwnProperty(key)) {
+                this.toastr.error(error.error.errors[key], '');
+              }
+            }
+          } else {
+            this.toastr.error('Ocorreu um erro ao realizar o cadastro.', '');
+          }
+        }
+      );
+    }
+  }
 }

@@ -1,5 +1,35 @@
 /* You can add global styles to this file, and also import other style files */
 
 body {
-    background-color: #323d44;
+  background-color: #e8e8e9;
+}
+
+#toast-container.toast-top-right  {
+  top: 60px;
+  right: 110px;
+  margin-bottom: 10px;
+}
+
+#toast-container.toast-top-right .toast-error {
+  border: 1px solid #e53131f0;
+  background: #e53131f0;
+  color: #fff;
+  border-radius: 4px;
+  padding: 20px;
+  font-weight: 800;
+}
+
+#toast-container.toast-top-right .toast-success {
+  border: 1px solid rgb(49 229 113 / 94%);
+  background: rgb(15 143 44 / 94%);
+  color: #fff;
+  border-radius: 4px;
+  padding: 20px;
+  font-weight: 800;
+}
+
+#toast-container.toast-top-center {
+  top: 0;
+  left: 50%;
+  transform: translateX(-50%);
 }
