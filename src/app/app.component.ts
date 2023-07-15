@@ -20,7 +20,7 @@ export class AppComponent {
 
   ngOnInit() {
     const token = localStorage.getItem('token');
-    if (!token) {
+    if (!token || token === null) {
       this.router.navigate(['/user']);
     }
   }
