@@ -9,3 +9,18 @@
     text-decoration: none;
   }
 }
+
+.nav-link.active:hover {
+  background: #292525;
+  color: #fff;
+  a {
+    color: #fff;
+  }
+}
+
+button {
+  background: #292525;
+  color: #fff;
+  border: none;
+  font-size: 20px;
+}

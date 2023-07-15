@@ -18,4 +18,8 @@ export class UserService {
     const registerData = { user: {name, email, password, password_confirmation} };
     return this.http.post('http://localhost:3002/users', registerData);    
   }
+
+  logout() {
+    return this.http.delete('http://localhost:3002/logout');
+  }
 }
