@@ -13,6 +13,7 @@ import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { ContactsComponent } from './components/contacts/contacts.component';
 import { HeaderComponent } from './components/shared/header/header.component';
 import { SidemenuComponent } from './components/shared/sidemenu/sidemenu.component';
+import { ContactFormComponent } from './components/contacts/contact-form/contact-form.component';
 
 
 @NgModule({
@@ -23,7 +24,8 @@ import { SidemenuComponent } from './components/shared/sidemenu/sidemenu.compone
     LoginComponent,
     ContactsComponent,
     HeaderComponent,
-    SidemenuComponent
+    SidemenuComponent,
+    ContactFormComponent
   ],
   imports: [
     BrowserModule,
