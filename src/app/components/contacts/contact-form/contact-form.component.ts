@@ -74,7 +74,6 @@ export class ContactFormComponent implements OnInit {
 
   onSubmit() {
     if (this.contactForm.valid) {
-      // Obtém os valores do formulário
       const name = this.contactForm.get('name')?.value;
       const cpf = this.contactForm.get('cpf')?.value;
       const phone = this.contactForm.get('phone')?.value;
@@ -102,7 +101,6 @@ export class ContactFormComponent implements OnInit {
           }
         );
       } else {
-        // Modo de criação - cria um novo contato
         this.contactsService.createContact(name, cpf, phone, cep, street, number, complement, neighborhood, city, uf, long, lat).subscribe(
           (response) => {
             this.router.navigate(['/contacts']);
@@ -115,7 +113,6 @@ export class ContactFormComponent implements OnInit {
         );
       }
     } else {
-      // Tratar o formulário inválido, se necessário
     }
   }
 

@@ -1,4 +1,5 @@
 import { Component } from '@angular/core';
+import { ToastrService } from 'ngx-toastr';
 import { ContactsService } from 'src/app/services/contacts.service';
 
 @Component({
@@ -9,15 +10,31 @@ import { ContactsService } from 'src/app/services/contacts.service';
 export class ContactsComponent {
   contacts: any[] = [];
 
-  constructor(private contactsService: ContactsService) {}
+  constructor(private contactsService: ContactsService, private toastr: ToastrService) {}
 
   ngOnInit() {
+    this.getContacts();
+  }
+
+  deleteContact(contactId: number) {
+    this.contactsService.deleteContact(contactId).subscribe(
+      () => {
+        this.getContacts();
+        this.toastr.success('Contato removido com sucesso', '');
+      },
+      (error) => {
+        this.toastr.error('Ocorreu um erro ao remover o contato.', error);
+      }
+    );
+  }
+
+  getContacts() {
     this.contactsService.getContacts().subscribe(
       (data) => {
         this.contacts = data;
       },
       (error) => {
-        console.log('Erro ao obter contatos:', error);
+        this.toastr.error('Ocorreu um erro ao obter os contatos.', error);
       }
     );
   }

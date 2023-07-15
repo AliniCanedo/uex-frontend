@@ -26,4 +26,8 @@ export class ContactsService {
     const contactData = { contact: { name, cpf, phone, address_attributes: { cep, street, number, complement, neighborhood, city, uf, map_attributes: { latitude, longitude } } } };
     return this.http.put(`http://localhost:3002/contacts/${contactId}`, contactData);
   }
+
+  deleteContact(contactId: number): Observable<any> {
+    return this.http.delete(`http://localhost:3002/contacts/${contactId}`);
+  }
 }
