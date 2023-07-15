@@ -39,6 +39,10 @@
     </table>
   </div>
 </div>
-<div *ngIf="contacts.length === 0">
-  <p>Nenhum contato encontrado.</p>
+<div class="container-fluid" *ngIf="contacts.length === 0">
+  <div class="row mt-5">
+    <div class="col d-flex align-items-center justify-content-center">
+      <h3>Nenhum contato encontrado.</h3>
+    </div>
+  </div>
 </div>
