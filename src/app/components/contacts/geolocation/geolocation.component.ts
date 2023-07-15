@@ -21,14 +21,18 @@ export class GeolocationComponent {
   }
 
   initMap() {
+    if (this.map) {
+      this.map.remove();
+    }
+  
     if (this.latitude && this.longitude) {
       this.map = L.map('map').setView([this.latitude, this.longitude], 13);
-
+  
       L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
         attribution: 'Map data © OpenStreetMap contributors'
       }).addTo(this.map);
-
+  
       L.marker([this.latitude, this.longitude]).addTo(this.map);
     }
-  }
+  }  
 }

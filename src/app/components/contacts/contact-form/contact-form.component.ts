@@ -1,6 +1,6 @@
-import { Component } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
-import { Router } from '@angular/router';
+import { Router, ActivatedRoute } from '@angular/router';
 import { ToastrService } from 'ngx-toastr';
 import { CepService } from 'src/app/services/cep.service';
 import { ContactsService } from 'src/app/services/contacts.service';
@@ -10,16 +10,21 @@ import { ContactsService } from 'src/app/services/contacts.service';
   templateUrl: './contact-form.component.html',
   styleUrls: ['./contact-form.component.scss']
 })
-export class ContactFormComponent {
+export class ContactFormComponent implements OnInit {
   contactForm: FormGroup;
   latitude!: number;
   longitude!: number;
+  isEditMode = false;
+  contactId!: number;
 
-  constructor(private formBuilder: FormBuilder, 
-              private cepService: CepService, 
-              private contactsService: ContactsService, 
-              private router: Router,
-              private toastr: ToastrService) {
+  constructor(
+    private formBuilder: FormBuilder,
+    private cepService: CepService,
+    private contactsService: ContactsService,
+    private router: Router,
+    private toastr: ToastrService,
+    private route: ActivatedRoute
+  ) {
     this.contactForm = this.formBuilder.group({
       name: ['', Validators.required],
       cpf: ['', Validators.required],
@@ -34,8 +39,42 @@ export class ContactFormComponent {
     });
   }
 
+  ngOnInit() {
+    this.route.params.subscribe(params => {
+      this.contactId = +params['id'];
+      this.isEditMode = !isNaN(this.contactId);
+
+      if (this.isEditMode) {
+        debugger
+        this.contactsService.getContact(this.contactId).subscribe(
+          (contact) => {
+            debugger
+            this.contactForm.patchValue({
+              name: contact.name,
+              cpf: contact.cpf,
+              phone: contact.phone,
+              cep: contact.address.cep,
+              street: contact.address.street,
+              number: contact.address.number,
+              complement: contact.address.complement,
+              neighborhood: contact.address.neighborhood,
+              city: contact.address.city,
+              state: contact.address.state
+            });
+            this.latitude = contact.address.map.latitude;
+            this.longitude = contact.address.map.longitude;
+          },
+          (error) => {
+            console.log('Erro ao obter os dados do contato:', error);
+          }
+        );
+      }
+    });
+  }
+
   onSubmit() {
-    if(this.contactForm.valid) {
+    if (this.contactForm.valid) {
+      // Obtém os valores do formulário
       const name = this.contactForm.get('name')?.value;
       const cpf = this.contactForm.get('cpf')?.value;
       const phone = this.contactForm.get('phone')?.value;
@@ -48,21 +87,35 @@ export class ContactFormComponent {
       const uf = this.contactForm.get('state')?.value;
 
       const long = this.longitude;
-      const lat = this.latitude
+      const lat = this.latitude;
 
-      this.contactsService.createContact(name, cpf, phone, cep, street, number, complement, neighborhood, city, uf, long, lat).subscribe(
-        (response) => {
-          debugger
-          this.router.navigate(['/contacts']);
-          this.toastr.success('Contato cadastrado com sucesso.', '');
-        },
-        (error) => {
-          debugger
-          this.toastr.error('Ocorreu um erro ao cadastrar contato.', '');
-        }
-      );
+      if (this.isEditMode) {
+
+        this.contactsService.updateContact(this.contactId, name, cpf, phone, cep, street, number, complement, neighborhood, city, uf, long, lat).subscribe(
+          (response) => {
+            this.router.navigate(['/contacts']);
+            this.toastr.success('Contato atualizado com sucesso.', '');
+          },
+          (error) => {
+            console.log('Erro ao atualizar o contato:', error);
+            this.toastr.error('Ocorreu um erro ao atualizar o contato.', '');
+          }
+        );
+      } else {
+        // Modo de criação - cria um novo contato
+        this.contactsService.createContact(name, cpf, phone, cep, street, number, complement, neighborhood, city, uf, long, lat).subscribe(
+          (response) => {
+            this.router.navigate(['/contacts']);
+            this.toastr.success('Contato cadastrado com sucesso.', '');
+          },
+          (error) => {
+            console.log('Erro ao cadastrar o contato:', error);
+            this.toastr.error('Ocorreu um erro ao cadastrar o contato.', '');
+          }
+        );
+      }
     } else {
-
+      // Tratar o formulário inválido, se necessário
     }
   }
 
@@ -72,10 +125,10 @@ export class ContactFormComponent {
       this.searchCep(cepControl.value);
     }
   }
+
   searchCep(cep: string) {
     this.cepService.searchCep(cep).subscribe(
       (data) => {
-        debugger
         this.latitude = data.latitude;
         this.longitude = data.longitude;
 

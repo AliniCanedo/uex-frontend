@@ -8,7 +8,8 @@ import { ContactFormComponent } from './components/contacts/contact-form/contact
 const routes: Routes = [
   { path: 'user', component: UserComponent },
   { path: 'contacts', component: ContactsComponent, canActivate: [AuthGuard] },
-  { path: 'contacts/new', component: ContactFormComponent, canActivate: [AuthGuard] }
+  { path: 'contacts/new', component: ContactFormComponent, canActivate: [AuthGuard] },
+  { path: 'contacts/edit/:id', component: ContactFormComponent, canActivate: [AuthGuard] }
 ];
 
 @NgModule({

@@ -13,8 +13,17 @@ export class ContactsService {
     return this.http.get('http://localhost:3002/contacts');
   }
 
-  createContact(name: string, cpf: string, phone: string, cep: string, street:string, number: string, complement: string, neighborhood: string, city: string, uf: string, latitude: number, longitude: number): Observable<any> {
-    const contactData = { contact: {name, cpf, phone, address_attributes: { cep, street, number, complement, neighborhood, city, uf, map_attributes: { latitude, longitude } } } };
-    return this.http.post('http://localhost:3002/contacts', contactData);   
+  createContact(name: string, cpf: string, phone: string, cep: string, street: string, number: string, complement: string, neighborhood: string, city: string, uf: string, latitude: number, longitude: number): Observable<any> {
+    const contactData = { contact: { name, cpf, phone, address_attributes: { cep, street, number, complement, neighborhood, city, uf, map_attributes: { latitude, longitude } } } };
+    return this.http.post('http://localhost:3002/contacts', contactData);
+  }
+
+  getContact(contactId: number): Observable<any> {
+    return this.http.get(`http://localhost:3002/contacts/${contactId}`);
+  }
+
+  updateContact(contactId: number, name: string, cpf: string, phone: string, cep: string, street: string, number: string, complement: string, neighborhood: string, city: string, uf: string, latitude: number, longitude: number): Observable<any> {
+    const contactData = { contact: { name, cpf, phone, address_attributes: { cep, street, number, complement, neighborhood, city, uf, map_attributes: { latitude, longitude } } } };
+    return this.http.put(`http://localhost:3002/contacts/${contactId}`, contactData);
   }
 }

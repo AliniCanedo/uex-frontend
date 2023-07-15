@@ -10,6 +10,6 @@ export class CepService {
   constructor(private http: HttpClient) {}
 
   searchCep(cep: string): Observable<any> {
-    return this.http.get<any>(`http://localhost:3000/search-address/${cep}`);
+    return this.http.get<any>(`http://localhost:3002/search-address/${cep}`);
   }
 }
