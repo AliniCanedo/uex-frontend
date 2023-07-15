@@ -1,9 +1,10 @@
-<app-header></app-header>
+<app-header *ngIf="!isUserScreen"></app-header>
+
 <div class="row">
-  <div class="col-4">
+  <div class="col-4" *ngIf="!isUserScreen">
     <app-sidemenu></app-sidemenu>
   </div>
-  <div class="col-8">
+  <div class="col-12 mx-auto">
     <router-outlet></router-outlet>
   </div>
 </div>
