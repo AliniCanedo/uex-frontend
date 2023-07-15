@@ -9,6 +9,8 @@ import { CepService } from 'src/app/services/cep.service';
 })
 export class ContactFormComponent {
   contactForm: FormGroup;
+  latitude!: number;
+  longitude!: number;
 
   constructor(private formBuilder: FormBuilder, private cepService: CepService) {
     this.contactForm = this.formBuilder.group({
@@ -37,6 +39,9 @@ export class ContactFormComponent {
     this.cepService.searchCep(cep).subscribe(
       (data) => {
         debugger
+        this.latitude = data.latitude;
+        this.longitude = data.longitude;
+
         this.contactForm.patchValue({
           street: data.logradouro,
           neighborhood: data.bairro,

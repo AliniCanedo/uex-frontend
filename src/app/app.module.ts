@@ -14,6 +14,7 @@ import { ContactsComponent } from './components/contacts/contacts.component';
 import { HeaderComponent } from './components/shared/header/header.component';
 import { SidemenuComponent } from './components/shared/sidemenu/sidemenu.component';
 import { ContactFormComponent } from './components/contacts/contact-form/contact-form.component';
+import { GeolocationComponent } from './components/contacts/geolocation/geolocation.component';
 
 
 @NgModule({
@@ -25,7 +26,8 @@ import { ContactFormComponent } from './components/contacts/contact-form/contact
     ContactsComponent,
     HeaderComponent,
     SidemenuComponent,
-    ContactFormComponent
+    ContactFormComponent,
+    GeolocationComponent
   ],
   imports: [
     BrowserModule,
