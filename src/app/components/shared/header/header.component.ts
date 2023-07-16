@@ -6,5 +6,13 @@ import { Component } from '@angular/core';
   styleUrls: ['./header.component.scss']
 })
 export class HeaderComponent {
+  name: string | null;
 
+  constructor() {
+    this.name = null;
+  }
+  
+  ngOnInit() {
+    this.name = localStorage.getItem('name');
+  }
 }

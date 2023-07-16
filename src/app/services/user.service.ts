@@ -10,6 +10,7 @@ export class UserService {
   constructor(private http: HttpClient) {}
 
   login(email: string, password: string): Observable<any> {
+    debugger
     const loginData = { user: {email, password} };
     return this.http.post('http://localhost:3002/users/sign_in', loginData);
   }

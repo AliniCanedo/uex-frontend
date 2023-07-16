@@ -27,7 +27,8 @@ export class LoginComponent {
 
       this.userService.login(email, password).subscribe(
         (response) => {
-          localStorage.setItem('token', response.token)
+          localStorage.setItem('token', response.token);
+          localStorage.setItem('name', response.current_user.name);
           this.router.navigate(['/contacts']);
           this.toastr.success('Login efetuado com sucesso.', '');
         },
