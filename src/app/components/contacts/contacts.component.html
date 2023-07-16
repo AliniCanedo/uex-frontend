@@ -1,5 +1,11 @@
-<div *ngIf="contacts.length > 0">
-  <span class="text-uppercase">Contatos ({{ contacts.length }})</span>
+<div class="row my-3">
+  <div class="col">
+    <input type="text" class="form-control" placeholder="Filtrar contatos" [(ngModel)]="filterText">
+  </div>
+</div>
+
+<div *ngIf="getFilteredContacts().length > 0">
+  <span class="text-uppercase">Contatos ({{ getFilteredContacts().length }})</span>
   <div class="table-responsive">
     <table class="table table-hover">
       <thead>
@@ -11,7 +17,7 @@
         </tr>
       </thead>
       <tbody>
-        <tr *ngFor="let contact of contacts">
+        <tr *ngFor="let contact of getFilteredContacts()">
           <th scope="row">
             <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-person-circle" viewBox="0 0 16 16">
               <path d="M11 6a3 3 0 1 1-6 0 3 3 0 0 1 6 0z"/>
@@ -39,7 +45,8 @@
     </table>
   </div>
 </div>
-<div class="container-fluid" *ngIf="contacts.length === 0">
+
+<div class="container-fluid" *ngIf="getFilteredContacts().length === 0">
   <div class="row mt-5">
     <div class="col d-flex align-items-center justify-content-center">
       <h3>Nenhum contato encontrado.</h3>

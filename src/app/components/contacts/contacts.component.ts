@@ -10,6 +10,7 @@ import { ContactsService } from 'src/app/services/contacts.service';
 })
 export class ContactsComponent {
   contacts: any[] = [];
+  filterText = '';
 
   constructor(private contactsService: ContactsService, private toastr: ToastrService, private router: Router) {}
 
@@ -46,4 +47,14 @@ export class ContactsComponent {
       }
     );
   }
+
+  getFilteredContacts() {
+    return this.contacts.filter(contact => {
+      return (
+        contact.name.toLowerCase().includes(this.filterText.toLowerCase()) ||
+        contact.phone.includes(this.filterText) ||
+        contact.cpf.includes(this.filterText)
+      );
+    });
+  }  
 }
