@@ -34,9 +34,14 @@ export class LoginComponent {
           this.router.navigate(['/contacts']);
           this.toastr.success('Login efetuado com sucesso.', '');
         },
-        (error) => {
+        (error) => {          
           this.isLoadingData = false;
-          this.toastr.error('Ocorreu um erro ao fazer o login.', '');
+          if (error.error && error.error.errors) {
+            this.toastr.error(error.error.errors, '');
+            this.isLoadingData = false;
+          } else {
+            this.toastr.error('Ocorreu um erro ao fazer o login.', '');
+          }
         },
         () => {
           this.isLoadingData = false;
