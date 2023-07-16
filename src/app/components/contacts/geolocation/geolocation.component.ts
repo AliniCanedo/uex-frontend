@@ -12,6 +12,7 @@ import * as L from 'leaflet';
 export class GeolocationComponent implements OnInit {
   @Input() latitude!: number;
   @Input() longitude!: number;
+  @Input() selectedContacts: any[] = [];
   map: any;
   marker: any;
 

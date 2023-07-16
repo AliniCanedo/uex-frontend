@@ -96,6 +96,7 @@ export class ContactFormComponent implements OnInit {
             this.toastr.success('Contato atualizado com sucesso.', '');
           },
           (error) => {
+            debugger
             console.log('Erro ao atualizar o contato:', error);
             this.toastr.error('Ocorreu um erro ao atualizar o contato.', '');
           }
@@ -103,10 +104,12 @@ export class ContactFormComponent implements OnInit {
       } else {
         this.contactsService.createContact(name, cpf, phone, cep, street, number, complement, neighborhood, city, uf, long, lat).subscribe(
           (response) => {
+            debugger
             this.router.navigate(['/contacts']);
             this.toastr.success('Contato cadastrado com sucesso.', '');
           },
           (error) => {
+            debugger
             console.log('Erro ao cadastrar o contato:', error);
             this.toastr.error('Ocorreu um erro ao cadastrar o contato.', '');
           }
