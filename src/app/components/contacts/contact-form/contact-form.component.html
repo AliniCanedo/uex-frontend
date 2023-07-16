@@ -16,7 +16,7 @@
       
             <div class="col-12">
               <div class="form-floating mb-3">
-                <input type="text" class="form-control" id="cpf" placeholder="CPF" formControlName="cpf">
+                <input type="text" class="form-control" id="cpf" placeholder="CPF" formControlName="cpf" [appInputMask]="'cpf'" maxlength="13">
                 <label for="cpf">CPF</label>
                 <div *ngIf="contactForm?.get('cpf')?.invalid && (contactForm?.get('cpf')?.dirty || contactForm?.get('cpf')?.touched)" class="text-danger">
                   CPF é obrigatório e deve ser válido.
@@ -26,7 +26,7 @@
       
             <div class="col-12">
               <div class="form-floating mb-3">
-                <input type="text" class="form-control" id="phone" placeholder="Telefone" formControlName="phone">
+                <input type="text" class="form-control" id="phone" placeholder="Telefone" formControlName="phone" [appInputMask]="'phone'" maxlength="15">
                 <label for="phone">Telefone</label>
                 <div *ngIf="contactForm?.get('phone')?.invalid && (contactForm?.get('phone')?.dirty || contactForm?.get('phone')?.touched)" class="text-danger">
                   Telefone é obrigatório e deve ser válido.
@@ -36,7 +36,7 @@
       
             <div class="col-12">
               <div class="form-floating mb-3">
-                <input type="text" class="form-control" id="cep" placeholder="CEP" formControlName="cep" (input)="onCepChange()">
+                <input type="text" class="form-control" id="cep" placeholder="CEP" formControlName="cep" (input)="onCepChange()" [appInputMask]="'cep'" maxlength="9">
                 <label for="cep">CEP</label>
                 <div *ngIf="contactForm?.get('cep')?.invalid && (contactForm?.get('cep')?.dirty || contactForm?.get('cep')?.touched)" class="text-danger">
                   CEP é obrigatório e deve ser válido.

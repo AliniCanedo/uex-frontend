@@ -1,6 +1,6 @@
 import { NgModule } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
-import { FormsModule } from '@angular/forms'; // Adicione esta linha
+import { FormsModule } from '@angular/forms';
 
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
@@ -18,6 +18,7 @@ import { ContactFormComponent } from './components/contacts/contact-form/contact
 import { GeolocationComponent } from './components/contacts/geolocation/geolocation.component';
 import { TokenInterceptor } from './core/guards/token.interceptor';
 import { ProfileComponent } from './components/user/profile/profile.component';
+import { InputMaskDirective } from './shared/directives/input-mask.directive';
 
 @NgModule({
   declarations: [
@@ -30,7 +31,8 @@ import { ProfileComponent } from './components/user/profile/profile.component';
     SidemenuComponent,
     ContactFormComponent,
     GeolocationComponent,
-    ProfileComponent
+    ProfileComponent,
+    InputMaskDirective
   ],
   imports: [
     BrowserModule,
@@ -38,7 +40,7 @@ import { ProfileComponent } from './components/user/profile/profile.component';
     AppRoutingModule,
     ReactiveFormsModule,
     HttpClientModule,
-    FormsModule, // Adicione esta linha
+    FormsModule,
     ToastrModule.forRoot({
       timeOut: 3000,
       positionClass: 'toast-top-right',
