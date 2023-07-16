@@ -46,7 +46,7 @@
         </div>
     
         <div class="col-lg-8">
-          <button type="submit" class="btn btn-primary mb-3 h-75 text-uppercase fw-bold">Atualizar Cadastro</button>
+          <button type="submit" class="btn btn-primary mb-3 h-75 text-uppercase fw-bold" [disabled]="profileForm.invalid || profileForm.pristine">Atualizar Cadastro</button>
           <button type="reset" class="btn btn-danger mb-3 h-75 text-uppercase fw-bold ms-3" (click)="deleteAccount()">Excluir conta</button>
         </div>
       </form>

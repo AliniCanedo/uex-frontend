@@ -104,7 +104,12 @@
             </div>
       
             <div class="col-lg-6 mx-auto">
-              <button type="submit" class="btn btn-primary mb-3 d-block w-100 h-75 text-uppercase fw-bold">{{ isEditMode ? 'Atualizar' : 'Salvar' }}</button>    
+              <button type="submit" [disabled]="contactForm.invalid || contactForm.pristine" class="btn btn-primary mb-3 d-block w-100 h-75 text-uppercase fw-bold">
+                <div *ngIf="isLoadingData" class="spinner-border" role="status">
+                  <span class="visually-hidden">Loading...</span>
+                </div>
+                <span *ngIf="!isLoadingData">{{ isEditMode ? 'Atualizar' : 'Salvar' }}</span>
+              </button>    
             </div>
           </form>
         </div>

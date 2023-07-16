@@ -16,6 +16,7 @@ export class ContactFormComponent implements OnInit {
   longitude!: number;
   isEditMode = false;
   contactId!: number;
+  isLoadingData: boolean = false;
 
   constructor(
     private formBuilder: FormBuilder,
@@ -45,10 +46,8 @@ export class ContactFormComponent implements OnInit {
       this.isEditMode = !isNaN(this.contactId);
 
       if (this.isEditMode) {
-        debugger
         this.contactsService.getContact(this.contactId).subscribe(
           (contact) => {
-            debugger
             this.contactForm.patchValue({
               name: contact.name,
               cpf: contact.cpf,
@@ -89,16 +88,26 @@ export class ContactFormComponent implements OnInit {
       const lat = this.latitude;
 
       if (this.isEditMode) {
-
+        this.isLoadingData = true;
         this.contactsService.updateContact(this.contactId, name, cpf, phone, cep, street, number, complement, neighborhood, city, uf, long, lat).subscribe(
           (response) => {
             this.router.navigate(['/contacts']);
             this.toastr.success('Contato atualizado com sucesso.', '');
           },
           (error) => {
-            debugger
-            console.log('Erro ao atualizar o contato:', error);
-            this.toastr.error('Ocorreu um erro ao atualizar o contato.', '');
+            if (error.error && error.error.errors && typeof error.error.errors === 'object') {
+              debugger
+              for (var key in error.error.errors) {
+                debugger
+                if (error.error.errors.hasOwnProperty(key)) {
+                  this.toastr.error(error.error.errors[key], '');
+                  this.isLoadingData = false;
+                }
+              }
+            }
+          },
+          () => {
+            this.isLoadingData = false;
           }
         );
       } else {
@@ -110,8 +119,17 @@ export class ContactFormComponent implements OnInit {
           },
           (error) => {
             debugger
-            console.log('Erro ao cadastrar o contato:', error);
-            this.toastr.error('Ocorreu um erro ao cadastrar o contato.', '');
+            if (error.error && error.error.errors && typeof error.error.errors === 'object') {
+              debugger
+              for (var key in error.error.errors) {
+                debugger
+                if (error.error.errors.hasOwnProperty(key)) {
+                  this.toastr.error(error.error.errors[key], '');
+                }
+              }
+            } else {
+              this.toastr.error('Ocorreu um erro ao cadastrar contato.', '');
+            }
           }
         );
       }
