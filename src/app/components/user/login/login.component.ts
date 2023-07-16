@@ -1,9 +1,8 @@
-import { Component } from '@angular/core';
+import { Component, EventEmitter, Output } from '@angular/core';
 import { FormGroup, FormBuilder, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
 import { ToastrService } from 'ngx-toastr';
 import { UserService } from 'src/app/services/user.service';
-
 
 @Component({
   selector: 'app-login',
@@ -12,6 +11,7 @@ import { UserService } from 'src/app/services/user.service';
 })
 export class LoginComponent {
   loginForm: FormGroup;
+  isLoadingData: boolean = false;
 
   constructor(private formBuilder: FormBuilder, private userService: UserService, private router: Router, private toastr: ToastrService) {
     this.loginForm = this.formBuilder.group({
@@ -22,6 +22,8 @@ export class LoginComponent {
 
   onSubmit() {
     if (this.loginForm.valid) {
+      this.isLoadingData = true;
+
       const email = this.loginForm.get('email')?.value;
       const password = this.loginForm.get('password')?.value;
 
@@ -33,11 +35,13 @@ export class LoginComponent {
           this.toastr.success('Login efetuado com sucesso.', '');
         },
         (error) => {
+          this.isLoadingData = false;
           this.toastr.error('Ocorreu um erro ao fazer o login.', '');
+        },
+        () => {
+          this.isLoadingData = false;
         }
       );
-    } else {
-      
     }
   }
 }

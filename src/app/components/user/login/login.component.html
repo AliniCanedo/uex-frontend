@@ -4,7 +4,7 @@
   <form [formGroup]="loginForm" (ngSubmit)="onSubmit()">
     <div class="col-lg-12">
       <div class="form-floating mb-3">
-        <input type="email" class="form-control" id="floatingInput" placeholder="name@example.com" formControlName="email">
+        <input type="email" class="form-control" id="floatingInput" placeholder="name@example.com" formControlName="email" autofocus>
         <label for="floatingInput">E-mail</label>
         <div *ngIf="loginForm?.get('email')?.invalid && loginForm?.get('email')?.touched" class="text-danger">
           Email é obrigatório e deve ser válido.
@@ -21,7 +21,12 @@
       </div>
     </div>
     <div class="col-lg-8 mx-auto">
-      <button type="submit" class="btn btn-primary mb-3 d-block w-100 h-75 text-uppercase fw-bold">Entrar</button>    
+      <button type="submit" class="btn btn-primary mb-3 d-block w-100 h-75 text-uppercase fw-bold">
+        <div *ngIf="isLoadingData" class="spinner-border" role="status">
+          <span class="visually-hidden">Loading...</span>
+        </div>
+        <span *ngIf="!isLoadingData">Entrar</span>
+      </button>    
     </div>
   </form>
 </div>

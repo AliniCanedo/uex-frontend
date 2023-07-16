@@ -10,6 +10,7 @@ import { UserService } from 'src/app/services/user.service';
 })
 export class RegisterComponent {
   registerForm: FormGroup;
+  isLoadingData: boolean = false;
 
   constructor(private formBuilder: FormBuilder, private userService: UserService, private toastr: ToastrService) {
     this.registerForm = this.formBuilder.group({
@@ -22,6 +23,7 @@ export class RegisterComponent {
 
   onSubmit() {
     if(this.registerForm.valid) {
+      this.isLoadingData = true;
       const name = this.registerForm.get('name')?.value;
       const email = this.registerForm.get('email')?.value;
       const password = this.registerForm.get('password')?.value;
@@ -34,6 +36,7 @@ export class RegisterComponent {
           this.registerForm.reset();
         },
         (error) => {
+          this.isLoadingData = false;
           if (error.error && error.error.errors && typeof error.error.errors === 'object') {
             for (var key in error.error.errors) {
               if (error.error.errors.hasOwnProperty(key)) {
@@ -41,6 +44,7 @@ export class RegisterComponent {
               }
             }
           } else {
+            this.isLoadingData = false;
             this.toastr.error('Ocorreu um erro ao realizar o cadastro.', '');
           }
         }

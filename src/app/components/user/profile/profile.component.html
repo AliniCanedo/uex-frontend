@@ -5,7 +5,7 @@
       <form [formGroup]="profileForm" (ngSubmit)="onSubmit()">
         <div class="col-12">
           <div class="form-floating mb-3">
-            <input type="text" class="form-control" id="floatingInputName" placeholder="Seu nome" formControlName="name" [(ngModel)]="user.name">
+            <input type="text" class="form-control" id="floatingInputName" placeholder="Seu nome" formControlName="name" [(ngModel)]="user.name" autofocus>
             <label for="floatingInputName">Seu nome</label>
             <div *ngIf="profileForm?.get('name')?.invalid && profileForm?.get('name')?.touched" class="text-danger">
               Nome é obrigatório e deve ser válido.
@@ -26,8 +26,8 @@
         <div class="row">
           <div class="col-lg-6">
             <div class="form-floating mb-3">
-              <input type="password" class="form-control" id="floatingPasswordRegister" placeholder="Senha" formControlName="password">
-              <label for="floatingPasswordRegister">Senha</label>
+              <input type="password" class="form-control" id="floatingPasswordProfile" placeholder="Senha" formControlName="password">
+              <label for="floatingPasswordProfile">Senha</label>
               <div *ngIf="profileForm?.get('password')?.invalid && profileForm?.get('password')?.touched" class="text-danger">
                 Senha é obrigatória.
               </div>
@@ -36,8 +36,8 @@
       
           <div class="col-lg-6">
             <div class="form-floating mb-3">
-              <input type="password" class="form-control" id="floatingPasswordConfirmation" placeholder="Confirme sua senha" formControlName="password_confirmation">
-              <label for="floatingPasswordConfirmation">Confirme sua senha</label>
+              <input type="password" class="form-control" id="floatingProfilePasswordConfirmation" placeholder="Confirme sua senha" formControlName="password_confirmation">
+              <label for="floatingProfilePasswordConfirmation">Confirme sua senha</label>
               <div *ngIf="profileForm?.get('password_confirmation')?.invalid && profileForm?.get('password_confirmation')?.touched" class="text-danger">
                 Confirmação de Senha é obrigatória.
               </div>

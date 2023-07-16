@@ -35,17 +35,21 @@
   
       <div class="col-lg-6">
         <div class="form-floating mb-3">
-          <input type="password" class="form-control" id="floatingPasswordConfirmation" placeholder="Confirme sua senha" formControlName="password_confirmation">
-          <label for="floatingPasswordConfirmation">Confirme sua senha</label>
+          <input type="password" class="form-control" id="floatingPasswordConfirmationRegister" placeholder="Confirme sua senha" formControlName="password_confirmation">
+          <label for="floatingPasswordConfirmationRegister">Confirme sua senha</label>
           <div *ngIf="registerForm?.get('password_confirmation')?.invalid && registerForm?.get('password_confirmation')?.touched" class="text-danger">
             Confirmação de Senha é obrigatória.
           </div>
         </div>
       </div>
     </div>
-
     <div class="col-lg-8 mx-auto">
-      <button type="submit" class="btn btn-primary mb-3 d-block w-100 h-75 text-uppercase fw-bold">Cadastrar-se</button>
+      <button type="submit" class="btn btn-primary mb-3 d-block w-100 h-75 text-uppercase fw-bold">
+        <div *ngIf="isLoadingData" class="spinner-border" role="status">
+          <span class="visually-hidden">Loading...</span>
+        </div>
+        <span *ngIf="!isLoadingData">Cadastrar-se</span>
+      </button>
     </div>
   </form>
 </div>
