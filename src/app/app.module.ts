@@ -16,6 +16,7 @@ import { SidemenuComponent } from './components/shared/sidemenu/sidemenu.compone
 import { ContactFormComponent } from './components/contacts/contact-form/contact-form.component';
 import { GeolocationComponent } from './components/contacts/geolocation/geolocation.component';
 import { TokenInterceptor } from './core/guards/token.interceptor';
+import { ProfileComponent } from './components/user/profile/profile.component';
 
 
 @NgModule({
@@ -28,7 +29,8 @@ import { TokenInterceptor } from './core/guards/token.interceptor';
     HeaderComponent,
     SidemenuComponent,
     ContactFormComponent,
-    GeolocationComponent
+    GeolocationComponent,
+    ProfileComponent
   ],
   imports: [
     BrowserModule,

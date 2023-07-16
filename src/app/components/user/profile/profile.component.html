@@ -1,0 +1,55 @@
+<div class="container-fluid mt-3">
+  <div class="card card-body">
+    <h1 class="text-uppercase fw-bolder">Meu perfil</h1>
+    <div class="row">
+      <form [formGroup]="profileForm" (ngSubmit)="onSubmit()">
+        <div class="col-12">
+          <div class="form-floating mb-3">
+            <input type="text" class="form-control" id="floatingInputName" placeholder="Seu nome" formControlName="name" [(ngModel)]="user.name">
+            <label for="floatingInputName">Seu nome</label>
+            <div *ngIf="profileForm?.get('name')?.invalid && profileForm?.get('name')?.touched" class="text-danger">
+              Nome é obrigatório e deve ser válido.
+            </div>
+          </div>
+        </div>
+        
+        <div class="col-12">
+          <div class="form-floating mb-3">
+            <input type="email" class="form-control" id="floatingInputRegister" placeholder="name@example.com" formControlName="email" [(ngModel)]="user.email">
+            <label for="floatingInputRegister">E-mail</label>
+            <div *ngIf="profileForm?.get('email')?.invalid && profileForm?.get('email')?.touched" class="text-danger">
+              Email é obrigatório e deve ser válido.
+            </div>
+          </div>
+        </div>
+    
+        <div class="row">
+          <div class="col-lg-6">
+            <div class="form-floating mb-3">
+              <input type="password" class="form-control" id="floatingPasswordRegister" placeholder="Senha" formControlName="password">
+              <label for="floatingPasswordRegister">Senha</label>
+              <div *ngIf="profileForm?.get('password')?.invalid && profileForm?.get('password')?.touched" class="text-danger">
+                Senha é obrigatória.
+              </div>
+            </div>
+          </div>
+      
+          <div class="col-lg-6">
+            <div class="form-floating mb-3">
+              <input type="password" class="form-control" id="floatingPasswordConfirmation" placeholder="Confirme sua senha" formControlName="password_confirmation">
+              <label for="floatingPasswordConfirmation">Confirme sua senha</label>
+              <div *ngIf="profileForm?.get('password_confirmation')?.invalid && profileForm?.get('password_confirmation')?.touched" class="text-danger">
+                Confirmação de Senha é obrigatória.
+              </div>
+            </div>
+          </div>
+        </div>
+    
+        <div class="col-lg-8">
+          <button type="submit" class="btn btn-primary mb-3 h-75 text-uppercase fw-bold">Atualizar Cadastro</button>
+          <button type="reset" class="btn btn-danger mb-3 h-75 text-uppercase fw-bold ms-3" (click)="deleteAccount()">Excluir conta</button>
+        </div>
+      </form>
+    </div>
+  </div>
+</div>
