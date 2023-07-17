@@ -11,7 +11,7 @@
       <div class="table-responsive">
         <table class="table table-hover">
           <tbody>
-            <tr *ngFor="let contact of getFilteredContacts()">
+            <tr *ngFor="let contact of getCurrentPageContacts()">
               <td>
                 <input class="form-check-input mt-0" type="checkbox" [value]="contact" aria-label="Checkbox for following text input" (change)="addPin(contact)" [checked]="selectedContact === contact">
               </td>
@@ -41,6 +41,10 @@
           </tbody>
         </table>
       </div>
+
+      <div class="row">
+        <app-pagination [totalContacts]="getFilteredContacts().length" [contactsPerPage]="contactsPerPage" [currentPage]="currentPage"></app-pagination>
+      </div>
     </div>
 
     <div class="container-fluid" *ngIf="getFilteredContacts().length === 0">
@@ -56,5 +60,3 @@
     <app-geolocation [longitude]="longitude" [latitude]="latitude"></app-geolocation>
   </div>  
 </div>
-
-

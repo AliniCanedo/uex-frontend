@@ -19,6 +19,7 @@ import { GeolocationComponent } from './components/contacts/geolocation/geolocat
 import { TokenInterceptor } from './core/guards/token.interceptor';
 import { ProfileComponent } from './components/user/profile/profile.component';
 import { InputMaskDirective } from './shared/directives/input-mask.directive';
+import { PaginationComponent } from './components/shared/pagination/pagination.component';
 
 @NgModule({
   declarations: [
@@ -32,7 +33,8 @@ import { InputMaskDirective } from './shared/directives/input-mask.directive';
     ContactFormComponent,
     GeolocationComponent,
     ProfileComponent,
-    InputMaskDirective
+    InputMaskDirective,
+    PaginationComponent
   ],
   imports: [
     BrowserModule,

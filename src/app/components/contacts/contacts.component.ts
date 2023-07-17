@@ -16,6 +16,9 @@ export class ContactsComponent {
   longitude!: number;
   selectedContact: any;
 
+  contactsPerPage = 10;
+  currentPage = 1;
+
   constructor(private contactsService: ContactsService, private toastr: ToastrService, private router: Router) {}
 
   ngOnInit() {
@@ -74,8 +77,24 @@ export class ContactsComponent {
       this.longitude = contact.map.longitude;
     }
   }
-}
-  
-  
-  
 
+  getCurrentPageContacts(): Contact[] {
+    const filteredContacts = this.getFilteredContacts();
+    const startIndex = (this.currentPage - 1) * this.contactsPerPage;
+    const endIndex = startIndex + this.contactsPerPage;
+    return filteredContacts.slice(startIndex, endIndex);
+  }
+
+  nextPage() {
+    const totalPages = Math.ceil(this.getFilteredContacts().length / this.contactsPerPage);
+    if (this.currentPage < totalPages) {
+      this.currentPage++;
+    }
+  }
+
+  previousPage() {
+    if (this.currentPage > 1) {
+      this.currentPage--;
+    }
+  }
+}
