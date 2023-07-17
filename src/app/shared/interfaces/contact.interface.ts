@@ -5,8 +5,6 @@ export interface Contact {
   name: string;
   phone: string;
   cpf: string;
-  created_at: string;
-  updated_at: string;
-  user_id: number;
-  address: Address;
+  user_id?: number;
+  address_attributes: Address;
 }

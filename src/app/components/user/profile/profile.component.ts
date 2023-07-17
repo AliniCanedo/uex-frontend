@@ -3,6 +3,7 @@ import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
 import { ToastrService } from 'ngx-toastr';
 import { UserService } from 'src/app/services/user.service';
+import { User } from 'src/app/shared/interfaces/user.interface';
 
 @Component({
   selector: 'app-profile',
@@ -31,7 +32,7 @@ export class ProfileComponent {
       (response) => {
         this.user = response.user
       },
-      (error) => {
+      () => {
         localStorage.removeItem('token');
         this.router.navigate(['/user']);
         this.toastr.error('Faça o login novamente.', '');
@@ -41,15 +42,17 @@ export class ProfileComponent {
 
   onSubmit() {
     if(this.profileForm.valid) {
-      const name = this.profileForm.get('name')?.value;
-      const email = this.profileForm.get('email')?.value;
-      const password = this.profileForm.get('password')?.value;
-      const password_confirmation = this.profileForm.get('password_confirmation')?.value;
+      const user: User = {
+        name: this.profileForm.get('name')?.value,
+        email: this.profileForm.get('email')?.value,
+        password: this.profileForm.get('password')?.value,
+        password_confirmation: this.profileForm.get('password_confirmation')?.value
+      }
 
-      this.userService.update(name, email, password, password_confirmation).subscribe(
-        (response) => {
+      this.userService.update(user).subscribe(
+        () => {
           this.toastr.success('Cadastro atualizado com sucesso.', '');
-          this.profileForm.reset();
+          this.router.navigate(['/profile']);
         },
         (error) => {
           if (error.error && error.error.errors && typeof error.error.errors === 'object') {
@@ -59,7 +62,7 @@ export class ProfileComponent {
               }
             }
           } else {
-            this.toastr.error('Ocorreu um erro ao realizar o cadastro.', '');
+            this.toastr.error('Ocorreu um erro ao atualizar.', '');
           }
         }
       );
@@ -71,12 +74,12 @@ export class ProfileComponent {
   deleteAccount() {
     if(this.profileForm.valid) {
       this.userService.delete().subscribe(
-        (response) => {
+        () => {
           localStorage.removeItem('token');
           this.router.navigate(['/user']);
           this.toastr.success('Perfil excluido com sucesso', '');
         },
-        (error) => {
+        () => {
           this.toastr.error('Erro ao excluir usuário.', '');
         }
       )

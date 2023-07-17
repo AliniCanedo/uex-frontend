@@ -4,6 +4,9 @@ import { Router, ActivatedRoute } from '@angular/router';
 import { ToastrService } from 'ngx-toastr';
 import { CepService } from 'src/app/services/cep.service';
 import { ContactsService } from 'src/app/services/contacts.service';
+import { Address } from 'src/app/shared/interfaces/address.interface';
+import { Contact } from 'src/app/shared/interfaces/contact.interface';
+import { MapAddress } from 'src/app/shared/interfaces/map.interface';
 
 @Component({
   selector: 'app-contact-form',
@@ -76,24 +79,33 @@ export class ContactFormComponent implements OnInit {
 
   onSubmit() {
     if (this.contactForm.valid) {
-      const name = this.contactForm.get('name')?.value;
-      const cpf = this.contactForm.get('cpf')?.value;
-      const phone = this.contactForm.get('phone')?.value;
-      const cep = this.contactForm.get('cep')?.value;
-      const street = this.contactForm.get('street')?.value;
-      const number = this.contactForm.get('number')?.value;
-      const complement = this.contactForm.get('complement')?.value;
-      const neighborhood = this.contactForm.get('neighborhood')?.value;
-      const city = this.contactForm.get('city')?.value;
-      const uf = this.contactForm.get('state')?.value;
-
-      const long = this.longitude;
-      const lat = this.latitude;
+      const map: MapAddress = {  
+        latitude: this.latitude,
+        longitude: this.longitude,
+      }
+      const address: Address = {
+        cep: this.contactForm.get('cep')?.value,
+        street: this.contactForm.get('street')?.value,
+        number: this.contactForm.get('number')?.value,
+        complement: this.contactForm.get('complement')?.value,
+        neighborhood: this.contactForm.get('neighborhood')?.value,
+        city: this.contactForm.get('city')?.value,
+        uf: this.contactForm.get('state')?.value,
+        contact_id: this.contactId,
+        map_attributes: map
+      }
+      const contact: Contact = {
+        id: this.contactId || 0,
+        name: this.contactForm.get('name')?.value,
+        cpf: this.contactForm.get('cpf')?.value,
+        phone: this.contactForm.get('phone')?.value,
+        address_attributes: address
+      }
 
       if (this.isEditMode) {
         this.isLoadingData = true;
-        this.contactsService.updateContact(this.contactId, name, cpf, phone, cep, street, number, complement, neighborhood, city, uf, long, lat).subscribe(
-          (response) => {
+        this.contactsService.updateContact(contact, this.contactId).subscribe(
+          () => {
             this.router.navigate(['/contacts']);
             this.toastr.success('Contato atualizado com sucesso.', '');
           },
@@ -112,7 +124,7 @@ export class ContactFormComponent implements OnInit {
           }
         );
       } else {
-        this.contactsService.createContact(name, cpf, phone, cep, street, number, complement, neighborhood, city, uf, long, lat).subscribe(
+        this.contactsService.createContact(contact).subscribe(
           () => {
             this.router.navigate(['/contacts']);
             this.toastr.success('Contato cadastrado com sucesso.', '');
@@ -158,38 +170,18 @@ export class ContactFormComponent implements OnInit {
   
     if (addressSearchControl) {
       const addressSearch = addressSearchControl.value;
-  
-      if (navigator.geolocation) {
-        navigator.geolocation.getCurrentPosition(
-          (position) => {
-            
-            const latitude = position.coords.latitude;
-            const longitude = position.coords.longitude;
-            console.log('Latitude:', latitude);
-            console.log('Longitude:', longitude);
-  
-            this.cepService.getLocationCoordinatesByAddress(addressSearch).subscribe(
-              (data) => {
-                
-
-                debugger
-                this.addresses = data.body.results
-              },
-              (error) => {
-                console.log('Erro na consulta do CEP:', error);
-              }
-            );
-          },
-          (error) => {
-            console.log('Erro ao obter a localização:', error);
-          }
-        );
-      } else {
-        console.log('Geolocalização não suportada pelo navegador.');
-      }
+      this.cepService.getLocationCoordinatesByAddress(addressSearch).subscribe(
+        (data) => {
+          this.addresses = data.body.results
+        },
+        () => {
+          this.toastr.error('Erro na consulta do CEP:', '');
+        }
+      );
     }
   }
 
+  // refactor
   selectAddress(address: any) {   
     this.latitude = address.geometry.location.lat;
     this.longitude = address.geometry.location.lng;
@@ -213,6 +205,5 @@ export class ContactFormComponent implements OnInit {
     setTimeout(() => {
       this.showAddressList = false;
     }, 200);
-  }
-  
+  }  
 }

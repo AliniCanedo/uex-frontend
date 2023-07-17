@@ -3,6 +3,7 @@ import { FormGroup, FormBuilder, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
 import { ToastrService } from 'ngx-toastr';
 import { UserService } from 'src/app/services/user.service';
+import { User } from 'src/app/shared/interfaces/user.interface';
 
 @Component({
   selector: 'app-login',
@@ -27,7 +28,12 @@ export class LoginComponent {
       const email = this.loginForm.get('email')?.value;
       const password = this.loginForm.get('password')?.value;
 
-      this.userService.login(email, password).subscribe(
+      const user: User = {
+        email,
+        password
+      }
+
+      this.userService.login(user).subscribe(
         (response) => {
           localStorage.setItem('token', response.token);
           localStorage.setItem('name', response.current_user.name);

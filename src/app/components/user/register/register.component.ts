@@ -2,6 +2,7 @@ import { Component } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { ToastrService } from 'ngx-toastr';
 import { UserService } from 'src/app/services/user.service';
+import { User } from 'src/app/shared/interfaces/user.interface';
 
 @Component({
   selector: 'app-register',
@@ -24,12 +25,14 @@ export class RegisterComponent {
   onSubmit() {
     if(this.registerForm.valid) {
       this.isLoadingData = true;
-      const name = this.registerForm.get('name')?.value;
-      const email = this.registerForm.get('email')?.value;
-      const password = this.registerForm.get('password')?.value;
-      const password_confirmation = this.registerForm.get('password_confirmation')?.value;
+      const user: User = {
+        name: this.registerForm.get('name')?.value,
+        email: this.registerForm.get('email')?.value,
+        password: this.registerForm.get('password')?.value,
+        password_confirmation: this.registerForm.get('password_confirmation')?.value
+      }
 
-      this.userService.register(name, email, password, password_confirmation).subscribe(
+      this.userService.register(user).subscribe(
         () => {
           this.isLoadingData = false;
           this.toastr.success('Cadastro efetuado com sucesso.', '');

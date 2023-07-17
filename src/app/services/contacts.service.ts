@@ -2,6 +2,7 @@ import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { Observable } from 'rxjs';
 import { environment } from 'src/environments/environment';
+import { Contact } from '../shared/interfaces/contact.interface';
 
 @Injectable({
   providedIn: 'root'
@@ -15,9 +16,9 @@ export class ContactsService {
     return this.http.get(url);
   }
 
-  createContact(name: string, cpf: string, phone: string, cep: string, street: string, number: string, complement: string, neighborhood: string, city: string, uf: string, longitude: number, latitude: number): Observable<any> {
+  createContact(contact: Contact): Observable<any> {
     const url = `${environment.apiUrl}/contacts`;
-    const contactData = { contact: { name, cpf, phone, address_attributes: { cep, street, number, complement, neighborhood, city, uf, map_attributes: { longitude, latitude} } } };
+    const contactData = { contact };
     return this.http.post(url, contactData);
   }
 
@@ -26,9 +27,10 @@ export class ContactsService {
     return this.http.get(url);
   }
 
-  updateContact(contactId: number, name: string, cpf: string, phone: string, cep: string, street: string, number: string, complement: string, neighborhood: string, city: string, uf: string, latitude: number, longitude: number): Observable<any> {
+  updateContact(contact: Contact, contactId: number): Observable<any> {
+    debugger
     const url = `${environment.apiUrl}/contacts/${contactId}`;
-    const contactData = { contact: { name, cpf, phone, address_attributes: { cep, street, number, complement, neighborhood, city, uf, map_attributes: { latitude, longitude } } } };
+    const contactData = { contact };
     return this.http.put(url, contactData);
   }
 

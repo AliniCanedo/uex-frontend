@@ -1,10 +1,14 @@
 import { MapAddress } from "./map.interface";
 
 export interface Address {
-  id: number;
+  id?: number;
   contact_id: number;
+  cep: string;
   uf: string;
   city: string;
   street: string;
-  map: MapAddress
+  number: string;
+  complement?: string;
+  neighborhood: string;
+  map_attributes: MapAddress
 }

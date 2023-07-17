@@ -2,6 +2,7 @@ import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { Observable } from 'rxjs';
 import { environment } from 'src/environments/environment';
+import { User } from '../shared/interfaces/user.interface';
 
 @Injectable({
   providedIn: 'root'
@@ -10,15 +11,15 @@ export class UserService {
 
   constructor(private http: HttpClient) {}
 
-  login(email: string, password: string): Observable<any> {
+  login(user: User): Observable<any> {
     const url = `${environment.apiUrl}/users/sign_in`;
-    const loginData = { user: {email, password} };
+    const loginData = { user };
     return this.http.post(url, loginData);
   }
 
-  register(name: string, email: string, password: string, password_confirmation: string): Observable<any> {
+  register(user: User): Observable<any> {
     const url = `${environment.apiUrl}/users`;
-    const registerData = { user: {name, email, password, password_confirmation} };
+    const registerData = { user };
     return this.http.post(url, registerData);    
   }
 
@@ -27,9 +28,9 @@ export class UserService {
     return this.http.delete(url);
   }
 
-  update(name: string, email: string, password: string, password_confirmation: string): Observable<any> {
+  update(user: User): Observable<any> {
     const url = `${environment.apiUrl}/user`;
-    const updateData = { user: {name, email, password, password_confirmation} };
+    const updateData = { user };
     return this.http.patch(url, updateData)
   }
 
