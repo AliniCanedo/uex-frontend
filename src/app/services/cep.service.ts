@@ -6,10 +6,6 @@ import { environment } from 'src/environments/environment';
 @Injectable({
   providedIn: 'root'
 })
-@Injectable({
-  providedIn: 'root'
-})
-
 export class CepService {
 
   constructor(private http: HttpClient) {}

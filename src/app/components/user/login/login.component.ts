@@ -14,7 +14,10 @@ export class LoginComponent {
   loginForm: FormGroup;
   isLoadingData: boolean = false;
 
-  constructor(private formBuilder: FormBuilder, private userService: UserService, private router: Router, private toastr: ToastrService) {
+  constructor(private formBuilder: FormBuilder, 
+              private userService: UserService, 
+              private router: Router, 
+              private toastr: ToastrService) {
     this.loginForm = this.formBuilder.group({
       email: ['', [Validators.required, Validators.email]],
       password: ['', Validators.required]

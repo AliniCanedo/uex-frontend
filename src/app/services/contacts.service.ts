@@ -28,7 +28,6 @@ export class ContactsService {
   }
 
   updateContact(contact: Contact, contactId: number): Observable<any> {
-    debugger
     const url = `${environment.apiUrl}/contacts/${contactId}`;
     const contactData = { contact };
     return this.http.put(url, contactData);

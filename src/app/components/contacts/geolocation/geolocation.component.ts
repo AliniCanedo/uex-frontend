@@ -35,8 +35,7 @@ export class GeolocationComponent implements OnInit {
     }
   }
 
-  initMap() {
-    
+  initMap() {    
     if (this.map) {
       this.map.remove();
     }

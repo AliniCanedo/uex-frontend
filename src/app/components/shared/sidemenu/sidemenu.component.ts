@@ -10,7 +10,9 @@ import { UserService } from 'src/app/services/user.service';
 })
 export class SidemenuComponent {
 
-  constructor(private userService: UserService, private toastr: ToastrService, private router: Router) {  }
+  constructor(private userService: UserService, 
+              private toastr: ToastrService, 
+              private router: Router) { }
 
   logout() {
     this.userService.logout().subscribe(

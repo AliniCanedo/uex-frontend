@@ -1,4 +1,4 @@
-import { Component, OnInit, ElementRef, Renderer2  } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { Router, ActivatedRoute } from '@angular/router';
 import { ToastrService } from 'ngx-toastr';
@@ -16,12 +16,12 @@ import { MapAddress } from 'src/app/shared/interfaces/map.interface';
 export class ContactFormComponent implements OnInit {
   contactForm: FormGroup;
   latitude!: number;
-  longitude!: number;
-  isEditMode = false;
-  contactId!: number;
-  isLoadingData: boolean = false;
+  longitude!: number;  
+  contactId!: number;  
   addresses: any;
+  isLoadingData: boolean = false;  
   showAddressList: boolean = false;
+  isEditMode = false;
 
   constructor(
     private formBuilder: FormBuilder,
@@ -29,7 +29,7 @@ export class ContactFormComponent implements OnInit {
     private contactsService: ContactsService,
     private router: Router,
     private toastr: ToastrService,
-    private route: ActivatedRoute, private elementRef: ElementRef, private renderer: Renderer2
+    private route: ActivatedRoute
   ) {
     this.contactForm = this.formBuilder.group({
       name: ['', Validators.required],

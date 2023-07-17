@@ -1,6 +1,8 @@
 <div class="container-fluid mt-3">
   <div class="card card-body">
+
     <h1 class="text-uppercase fw-bolder">Meu perfil</h1>
+
     <div class="row">
       <form [formGroup]="profileForm" (ngSubmit)="onSubmit()">
         <div class="col-12">
@@ -49,7 +51,9 @@
           <button type="submit" class="btn btn-primary mb-3 h-75 text-uppercase fw-bold" [disabled]="profileForm.invalid || profileForm.pristine">Atualizar Cadastro</button>
           <button type="reset" class="btn btn-danger mb-3 h-75 text-uppercase fw-bold ms-lg-3" (click)="deleteAccount()">Excluir conta</button>
         </div>
+
       </form>
     </div>
+
   </div>
 </div>

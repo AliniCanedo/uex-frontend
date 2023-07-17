@@ -13,7 +13,9 @@ export class RegisterComponent {
   registerForm: FormGroup;
   isLoadingData: boolean = false;
 
-  constructor(private formBuilder: FormBuilder, private userService: UserService, private toastr: ToastrService) {
+  constructor(private formBuilder: FormBuilder, 
+              private userService: UserService, 
+              private toastr: ToastrService) {
     this.registerForm = this.formBuilder.group({
       name: ['', [Validators.required]],
       email: ['', [Validators.required, Validators.email]],

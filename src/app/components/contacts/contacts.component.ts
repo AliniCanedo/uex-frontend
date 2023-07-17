@@ -10,16 +10,17 @@ import { Contact } from 'src/app/shared/interfaces/contact.interface'
   styleUrls: ['./contacts.component.scss']
 })
 export class ContactsComponent {
-  contacts: Contact[] = [];
-  filterText = '';
+  contacts: Contact[] = [];  
   latitude!: number;
   longitude!: number;
   selectedContact: any;
-
+  filterText = '';
   contactsPerPage = 10;
   currentPage = 1;
 
-  constructor(private contactsService: ContactsService, private toastr: ToastrService, private router: Router) {}
+  constructor(private contactsService: ContactsService, 
+              private toastr: ToastrService, 
+              private router: Router) {}
 
   ngOnInit() {
     this.getContacts();
@@ -27,7 +28,7 @@ export class ContactsComponent {
 
   deleteContact(contactId: number) {
     this.contactsService.deleteContact(contactId).subscribe(
-      (response) => {        
+      () => {        
         this.getContacts();
         this.toastr.success('Contato removido com sucesso', '');
       },
