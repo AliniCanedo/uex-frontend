@@ -5,7 +5,7 @@
     <div class="col-2" *ngIf="!isUserScreen">
       <app-sidemenu></app-sidemenu>
     </div>
-    <div class="mx-auto" [ngClass]="!isUserScreen ? 'col' : 'col-12'">
+    <div class="mx-auto" [ngClass]="!isUserScreen ? 'col-10' : 'col-12'">
       <router-outlet></router-outlet>
     </div>
   </div>

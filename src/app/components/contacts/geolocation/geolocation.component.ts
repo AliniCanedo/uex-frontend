@@ -5,7 +5,7 @@ import * as L from 'leaflet';
   selector: 'app-geolocation',
   template: `
     <div>
-      <div id="map" style="height: 500px;"></div>
+      <div id="map"></div>
     </div>
   `,
 })

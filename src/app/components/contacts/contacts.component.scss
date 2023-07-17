@@ -13,3 +13,13 @@ button.trash {
 h3 {
   color: #929299;
 }
+
+@media screen and (max-width: 991px) {
+  tr th:nth-child(3), tr th:nth-child(4) {
+    display: none;
+  }  
+
+  tr td:nth-child(3), tr td:nth-child(4) {
+    display: none;
+  }
+}

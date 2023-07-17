@@ -42,3 +42,27 @@ body {
   left: 50%;
   transform: translateX(-50%);
 }
+
+h1 {
+  color: #575757;
+  font-family: "Montserrat", sans-serif;
+  text-transform: uppercase;
+}
+
+#map {
+  height: 500px;
+}
+
+@media screen and (max-width: 991px) {
+  h1 {
+    font-size: 14px;
+  }
+
+  #map {
+    height: 200px;
+  }
+
+  .mx-auto.col-10 {
+    padding-left: 0;
+  }
+}

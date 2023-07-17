@@ -10,27 +10,18 @@
       <span class="text-uppercase">Contatos ({{ getFilteredContacts().length }})</span>
       <div class="table-responsive">
         <table class="table table-hover">
-          <thead>
-            <tr>
-              <th scope="col"></th>
-              <th scope="col">Nome</th>
-              <th scope="col">Telefone</th>
-              <th scope="col">CPF</th>
-              <th scope="col">Ações</th>
-            </tr>
-          </thead>
           <tbody>
             <tr *ngFor="let contact of getFilteredContacts()">
               <td>
                 <input class="form-check-input mt-0" type="checkbox" [value]="contact" aria-label="Checkbox for following text input" (change)="addPin(contact)" [checked]="selectedContact === contact">
               </td>
-              <th scope="row">
+              <td>
                 <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" fill="#dedede" class="bi bi-person-circle" viewBox="0 0 16 16">
                   <path d="M11 6a3 3 0 1 1-6 0 3 3 0 0 1 6 0z"/>
                   <path fill-rule="evenodd" d="M0 8a8 8 0 1 1 16 0A8 8 0 0 1 0 8zm8-7a7 7 0 0 0-5.468 11.37C3.242 11.226 4.805 10 8 10s4.757 1.225 5.468 2.37A7 7 0 0 0 8 1z"/>
                 </svg>
                 {{ contact.name }}
-              </th>
+              </td>
               <td>{{ contact.phone | slice: 0:2 }} {{ contact.phone | slice: 2:6 }}-{{ contact.phone | slice: 6 }}</td>
               <td>{{ contact.cpf | slice: 0:3 }}.{{ contact.cpf | slice: 3:6 }}.{{ contact.cpf | slice: 6:9 }}-{{ contact.cpf | slice: 9 }}</td>
               <td>
@@ -61,7 +52,7 @@
     </div>
     
   </div>
-  <div class="col-6 mt-4">
+  <div class="col-lg-6 mt-4">
     <app-geolocation [longitude]="longitude" [latitude]="latitude"></app-geolocation>
   </div>  
 </div>

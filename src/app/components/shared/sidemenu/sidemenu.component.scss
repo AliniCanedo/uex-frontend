@@ -1,37 +1,34 @@
-.nav-link.active {
-  background-color: #f8f9fa;
-  color: #3d3a3a;
-  font-weight: 600;
-  border: 1px solid #3d3a3a;
-
-  a {
-    color: #3d3a3a;
-    text-decoration: none;
-  }
-}
-
-.nav-link.active:hover {
-  background: #292525;
-  color: #fff;
-  a {
-    color: #fff;
-  }
-}
 
 button {
-  background: #292525;
-  color: #fff;
+  background: transparent;
+  color: #3d3a3a;
   border: none;
   font-size: 20px;
 }
 
-.nav-item > a {
-  text-decoration: none;
-  color: rgb(32,33,36);
+.nav-item {
   cursor: pointer;
+}
+
+.nav-item > a {  
+  text-decoration: none;
+  color: rgb(32,33,36);  
   padding: 10px;  
 }
 
 .nav-item > a:hover {
   color: rgb(110 114 129);  
+}
+
+@media screen and (max-width: 991px) {
+  .nav-item > a {
+    padding: 0;
+  }
+
+  button {
+    background: transparent;
+    color: #000;
+    border: none;
+    font-size: 20px;
+  }
 }
