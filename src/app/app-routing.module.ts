@@ -7,6 +7,7 @@ import { ContactFormComponent } from './components/contacts/contact-form/contact
 import { ProfileComponent } from './components/user/profile/profile.component';
 
 const routes: Routes = [
+  { path: '', component: ContactsComponent, canActivate: [AuthGuard] },
   { path: 'user', component: UserComponent },
   { path: 'contacts', component: ContactsComponent, canActivate: [AuthGuard] },
   { path: 'contacts/new', component: ContactFormComponent, canActivate: [AuthGuard] },

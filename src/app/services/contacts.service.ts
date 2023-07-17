@@ -13,8 +13,8 @@ export class ContactsService {
     return this.http.get('http://localhost:3002/contacts');
   }
 
-  createContact(name: string, cpf: string, phone: string, cep: string, street: string, number: string, complement: string, neighborhood: string, city: string, uf: string, latitude: number, longitude: number): Observable<any> {
-    const contactData = { contact: { name, cpf, phone, address_attributes: { cep, street, number, complement, neighborhood, city, uf, map_attributes: { latitude, longitude } } } };
+  createContact(name: string, cpf: string, phone: string, cep: string, street: string, number: string, complement: string, neighborhood: string, city: string, uf: string, longitude: number, latitude: number): Observable<any> {
+    const contactData = { contact: { name, cpf, phone, address_attributes: { cep, street, number, complement, neighborhood, city, uf, map_attributes: { longitude, latitude} } } };
     return this.http.post('http://localhost:3002/contacts', contactData);
   }
 

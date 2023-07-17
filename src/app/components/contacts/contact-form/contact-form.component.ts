@@ -58,7 +58,7 @@ export class ContactFormComponent implements OnInit {
               complement: contact.address.complement,
               neighborhood: contact.address.neighborhood,
               city: contact.address.city,
-              state: contact.address.state
+              state: contact.address.uf
             });
             this.latitude = contact.address.map.latitude;
             this.longitude = contact.address.map.longitude;
@@ -110,17 +110,13 @@ export class ContactFormComponent implements OnInit {
         );
       } else {
         this.contactsService.createContact(name, cpf, phone, cep, street, number, complement, neighborhood, city, uf, long, lat).subscribe(
-          (response) => {
-            debugger
+          () => {
             this.router.navigate(['/contacts']);
             this.toastr.success('Contato cadastrado com sucesso.', '');
           },
           (error) => {
-            debugger
             if (error.error && error.error.errors && typeof error.error.errors === 'object') {
-              debugger
               for (var key in error.error.errors) {
-                debugger
                 if (error.error.errors.hasOwnProperty(key)) {
                   this.toastr.error(error.error.errors[key], '');
                 }
@@ -133,7 +129,6 @@ export class ContactFormComponent implements OnInit {
       }
     }
   }
-
 
   searchCep() {
     const cep = this.contactForm.value.cep

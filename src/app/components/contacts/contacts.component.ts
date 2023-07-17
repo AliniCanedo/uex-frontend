@@ -12,9 +12,9 @@ import { Contact } from 'src/app/shared/interfaces/contact.interface'
 export class ContactsComponent {
   contacts: Contact[] = [];
   filterText = '';
-  longitude: number = 0;
-  latitude: number = 0;
-  selectedContacts: Contact[] = [];
+  latitude!: number;
+  longitude!: number;
+  selectedContact: any;
 
   constructor(private contactsService: ContactsService, private toastr: ToastrService, private router: Router) {}
 
@@ -40,7 +40,6 @@ export class ContactsComponent {
         this.contacts = data;
       },
       (error) => {
-        debugger
         if(error.error.error == "Missing token") {
           localStorage.removeItem('token');
           this.router.navigate(['/user']);
@@ -61,27 +60,17 @@ export class ContactsComponent {
       );
     });
   }
+
   addPin(contact: any) {
-    console.log(contact);
-    debugger;
-    // this.selectedContacts = [contact.map.longitude, contact.map.latitude];
-
-    // this.selectedContacts.push(contact);
-    // this.latitude = contact.map.longitude;
-    // this.longitude = contact.map.latitude;
-
-      const index = this.selectedContacts.indexOf(contact);
-      if (index === -1) {
-        this.selectedContacts.push(contact);
-        this.latitude = contact.map.latitude;
-        this.longitude = contact.map.longitude;
-      }
-
-      console.log(this.selectedContacts);
+    if (this.selectedContact === contact) {
+      this.selectedContact = null;
+    } else {
+      this.selectedContact = contact;
+      this.latitude = contact.map.latitude;
+      this.longitude = contact.map.longitude;
     }
   }
-
-  
+}
   
   
   

@@ -36,6 +36,7 @@ export class GeolocationComponent implements OnInit {
   }
 
   initMap() {
+    
     if (this.map) {
       this.map.remove();
     }
@@ -63,6 +64,7 @@ export class GeolocationComponent implements OnInit {
     if (navigator.geolocation) {
       navigator.geolocation.getCurrentPosition(
         (position) => {
+          
           this.latitude = position.coords.latitude;
           this.longitude = position.coords.longitude;
           this.initMap();

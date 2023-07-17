@@ -30,8 +30,8 @@ export class RegisterComponent {
       const password_confirmation = this.registerForm.get('password_confirmation')?.value;
 
       this.userService.register(name, email, password, password_confirmation).subscribe(
-        (response) => {
-          console.log(response)
+        () => {
+          this.isLoadingData = false;
           this.toastr.success('Cadastro efetuado com sucesso.', '');
           this.registerForm.reset();
         },

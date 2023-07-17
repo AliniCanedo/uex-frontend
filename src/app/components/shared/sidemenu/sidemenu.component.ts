@@ -14,8 +14,7 @@ export class SidemenuComponent {
 
   logout() {
     this.userService.logout().subscribe(
-      (data) => {
-        debugger
+      () => {
         localStorage.removeItem('token');
         this.router.navigate(['/user']);
       },
