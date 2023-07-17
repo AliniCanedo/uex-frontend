@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, ElementRef, Renderer2  } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { Router, ActivatedRoute } from '@angular/router';
 import { ToastrService } from 'ngx-toastr';
@@ -17,6 +17,8 @@ export class ContactFormComponent implements OnInit {
   isEditMode = false;
   contactId!: number;
   isLoadingData: boolean = false;
+  addresses: any;
+  showAddressList: boolean = false;
 
   constructor(
     private formBuilder: FormBuilder,
@@ -24,7 +26,7 @@ export class ContactFormComponent implements OnInit {
     private contactsService: ContactsService,
     private router: Router,
     private toastr: ToastrService,
-    private route: ActivatedRoute
+    private route: ActivatedRoute, private elementRef: ElementRef, private renderer: Renderer2
   ) {
     this.contactForm = this.formBuilder.group({
       name: ['', Validators.required],
@@ -36,7 +38,8 @@ export class ContactFormComponent implements OnInit {
       complement: [''],
       neighborhood: ['', Validators.required],
       city: ['', Validators.required],
-      state: ['', Validators.required]
+      state: ['', Validators.required],
+      addressSearch: ['']
     });
   }
 
@@ -150,24 +153,66 @@ export class ContactFormComponent implements OnInit {
     );
   }
 
-  searchStreet() {
-    const street = this.contactForm.value.street
-    this.cepService.getLocationCoordinatesByAddress(street).subscribe(
-      (data) => {
-        this.latitude = data.latitude;
-        this.longitude = data.longitude;
+  searchAddress() {
+    const addressSearchControl = this.contactForm.get('street');
+  
+    if (addressSearchControl) {
+      const addressSearch = addressSearchControl.value;
+  
+      if (navigator.geolocation) {
+        navigator.geolocation.getCurrentPosition(
+          (position) => {
+            
+            const latitude = position.coords.latitude;
+            const longitude = position.coords.longitude;
+            console.log('Latitude:', latitude);
+            console.log('Longitude:', longitude);
+  
+            this.cepService.getLocationCoordinatesByAddress(addressSearch).subscribe(
+              (data) => {
+                
 
-        this.contactForm.patchValue({
-          cep: data.cep,
-          street: data.logradouro,
-          neighborhood: data.bairro,
-          city: data.localidade,
-          state: data.uf
-        });
-      },
-      (error) => {
-        this.toastr.error(error.error.error, '');
+                debugger
+                this.addresses = data.body.results
+              },
+              (error) => {
+                console.log('Erro na consulta do CEP:', error);
+              }
+            );
+          },
+          (error) => {
+            console.log('Erro ao obter a localização:', error);
+          }
+        );
+      } else {
+        console.log('Geolocalização não suportada pelo navegador.');
       }
-    );
+    }
   }
+
+  selectAddress(address: any) {   
+    this.latitude = address.geometry.location.lat;
+    this.longitude = address.geometry.location.lng;
+
+    let formatted_address = address.formatted_address.split(',')
+
+    this.contactForm.patchValue({
+      street:  formatted_address[0],
+      cep: formatted_address[3],      
+      neighborhood: formatted_address[1].split('-')[1],
+      city: formatted_address[2],
+      state: formatted_address[2].split('-')[1]
+    }); 
+  }
+
+  onFocusIn() {
+    this.showAddressList = true;
+  }
+  
+  onFocusOut() {
+    setTimeout(() => {
+      this.showAddressList = false;
+    }, 200);
+  }
+  
 }

@@ -13,7 +13,8 @@ export class CepService {
     return this.http.get<any>(`http://localhost:3002/search-address/${cep}`);
   }
 
-  getLocationCoordinatesByAddress(address: any): Observable<any> {
-    return this.http.get<any>(`http://localhost:3002/location-by-address/${address}`);
+  getLocationCoordinatesByAddress(address: any): Observable<any> {    
+    const addressData = { address: {address} };
+    return this.http.post<any>('http://localhost:3002/address', addressData);
   }
 }
