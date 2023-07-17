@@ -172,7 +172,7 @@ export class ContactFormComponent implements OnInit {
       const addressSearch = addressSearchControl.value;
       this.cepService.getLocationCoordinatesByAddress(addressSearch).subscribe(
         (data) => {
-          this.addresses = data.body.results
+          this.addresses = data.body.results.slice(0, 5)
         },
         () => {
           this.toastr.error('Erro na consulta do CEP:', '');
@@ -181,7 +181,6 @@ export class ContactFormComponent implements OnInit {
     }
   }
 
-  // refactor
   selectAddress(address: any) {   
     this.latitude = address.geometry.location.lat;
     this.longitude = address.geometry.location.lng;
@@ -189,6 +188,7 @@ export class ContactFormComponent implements OnInit {
     let formatted_address = address.formatted_address.split(',')
 
     this.contactForm.patchValue({
+      
       street:  formatted_address[0],
       cep: formatted_address[3],      
       neighborhood: formatted_address[1].split('-')[1],

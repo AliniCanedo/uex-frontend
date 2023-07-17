@@ -1,8 +1,11 @@
 .position-absolute {
-    z-index: 100;
+  z-index: 100;
 }
 
 .position-absolute.hidden {
-    display: none;
-  }
-  
+  display: none;
+}
+
+.list-group {
+  cursor: pointer;
+}

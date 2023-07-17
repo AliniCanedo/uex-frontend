@@ -52,14 +52,18 @@ export class ContactsComponent {
   }
 
   getFilteredContacts() {
-    return this.contacts.filter(contact => {
+    const filteredContacts = this.contacts.filter(contact => {
       return (
         contact.name.toLowerCase().includes(this.filterText.toLowerCase()) ||
         contact.phone.includes(this.filterText) ||
         contact.cpf.includes(this.filterText)
       );
     });
-  }
+  
+    filteredContacts.sort((a, b) => a.name.localeCompare(b.name));
+  
+    return filteredContacts;
+  }  
 
   addPin(contact: any) {
     if (this.selectedContact === contact) {
