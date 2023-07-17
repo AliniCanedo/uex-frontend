@@ -22,7 +22,7 @@
                 </svg>
                 {{ contact.name }}
               </td>
-              <td>{{ contact.phone | slice: 0:2 }} {{ contact.phone | slice: 2:6 }}-{{ contact.phone | slice: 6 }}</td>
+              <td>{{ contact.phone | slice: 0:2 }}{{ contact.phone | slice: 2:7 }}{{ contact.phone | slice: 7 }}</td>
               <td>{{ contact.cpf | slice: 0:3 }}.{{ contact.cpf | slice: 3:6 }}.{{ contact.cpf | slice: 6:9 }}-{{ contact.cpf | slice: 9 }}</td>
               <td>
                 <a [routerLink]="['/contacts/edit', contact.id]">
