@@ -96,9 +96,7 @@ export class ContactFormComponent implements OnInit {
           },
           (error) => {
             if (error.error && error.error.errors && typeof error.error.errors === 'object') {
-              debugger
               for (var key in error.error.errors) {
-                debugger
                 if (error.error.errors.hasOwnProperty(key)) {
                   this.toastr.error(error.error.errors[key], '');
                   this.isLoadingData = false;
@@ -133,18 +131,12 @@ export class ContactFormComponent implements OnInit {
           }
         );
       }
-    } else {
     }
   }
 
-  onCepChange() {
-    const cepControl = this.contactForm.get('cep');
-    if (cepControl && cepControl.value) {
-      this.searchCep(cepControl.value);
-    }
-  }
 
-  searchCep(cep: string) {
+  searchCep() {
+    const cep = this.contactForm.value.cep
     this.cepService.searchCep(cep).subscribe(
       (data) => {
         this.latitude = data.latitude;
@@ -159,6 +151,27 @@ export class ContactFormComponent implements OnInit {
       },
       (error) => {
         console.log('Erro na consulta do CEP:', error);
+      }
+    );
+  }
+
+  searchStreet() {
+    const street = this.contactForm.value.street
+    this.cepService.getLocationCoordinatesByAddress(street).subscribe(
+      (data) => {
+        this.latitude = data.latitude;
+        this.longitude = data.longitude;
+
+        this.contactForm.patchValue({
+          cep: data.cep,
+          street: data.logradouro,
+          neighborhood: data.bairro,
+          city: data.localidade,
+          state: data.uf
+        });
+      },
+      (error) => {
+        this.toastr.error(error.error.error, '');
       }
     );
   }

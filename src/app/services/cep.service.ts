@@ -12,4 +12,8 @@ export class CepService {
   searchCep(cep: string): Observable<any> {
     return this.http.get<any>(`http://localhost:3002/search-address/${cep}`);
   }
+
+  getLocationCoordinatesByAddress(address: any): Observable<any> {
+    return this.http.get<any>(`http://localhost:3002/location-by-address/${address}`);
+  }
 }
